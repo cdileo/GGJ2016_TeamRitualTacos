@@ -5,13 +5,14 @@ public class positionTracker : MonoBehaviour {
 
     // public vars
     public GameObject partner;
-    public float attackCooldown = 1f;
-    public float moveCooldown = 1f;
-    public float specialCooldown = 1f;
+    public GameObject boss;
     public float moveSpeed = 5f;
     public bool moveEnabled = false;
     public bool debugMe;
-    public float partnerDistanceThreshold = 1f;
+    public float partnerDistanceThreshold = 1.5f;
+    public float nearBossThreshold = 4f;
+
+    public float lastMove;
 
     // private
     private Transform partnerTransform;
@@ -44,9 +45,11 @@ public class positionTracker : MonoBehaviour {
 
         if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
+            lastMove = Time.time;
         }
         if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
             this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
+            lastMove = Time.time;
         }
     }
 
@@ -122,5 +125,22 @@ public class positionTracker : MonoBehaviour {
     private bool checkPartnerDistance()
     {
         return (Vector2.Distance(transform.position, partnerTransform.position) < partnerDistanceThreshold);
+    }
+
+    public int getPartnerDirection()
+    {
+        if (checkPartnerDistance())
+        {
+            return partnerDirection();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public bool isNearBoss()
+    {
+        return Vector2.Distance(transform.position, boss.transform.position) < nearBossThreshold;
     }
 }
