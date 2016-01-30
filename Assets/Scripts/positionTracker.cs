@@ -34,8 +34,7 @@ public class positionTracker : MonoBehaviour {
     // State machine for what options are available - 1 per cardinal and half-cardinal dirs
 
 	void Update () {
-        isMoving = (transform.position != myLastPosition);
-        myLastPosition = this.transform.position;
+        isMoving = false;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -46,10 +45,12 @@ public class positionTracker : MonoBehaviour {
         if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
             lastMove = Time.time;
+            isMoving = true;
         }
         if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
             this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
             lastMove = Time.time;
+            isMoving = true;
         }
     }
 
@@ -142,5 +143,10 @@ public class positionTracker : MonoBehaviour {
     public bool isNearBoss()
     {
         return Vector2.Distance(transform.position, boss.transform.position) < nearBossThreshold;
+    }
+
+    public bool getIsMoving()
+    {
+        return isMoving;
     }
 }
