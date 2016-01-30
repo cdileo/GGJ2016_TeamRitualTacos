@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 451962}
   - 212: {fileID: 21281944}
-  - 114: {fileID: 11471020}
   - 58: {fileID: 5867416}
+  - 114: {fileID: 11423528}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &11471020
+--- !u!114 &11423528
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -52,10 +52,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 128846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07c548b6c8a6054d92b04e3039f7b41, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e5e9aa1e6fa63745b12f8c3ff1fc40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selector: {fileID: 0}
 --- !u!212 &21281944
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -80,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1818728625
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c7cf6c812141e084cae66e41a876b9d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -92,7 +91,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 1818728625
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128846}
