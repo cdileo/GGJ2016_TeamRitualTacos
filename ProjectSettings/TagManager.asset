@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Selector
+  - MouseDestination
+  - TurtleDestination
   layers:
   - Default
   - TransparentFX
@@ -16,11 +19,11 @@ TagManager:
   - 
   - 
   - 
+  - Player
   - 
   - 
   - 
-  - 
-  - 
+  - Selector
   - 
   - 
   - 
@@ -40,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1818728625
+    locked: 0
+  - name: Selector
+    uniqueID: 3164592493
     locked: 0

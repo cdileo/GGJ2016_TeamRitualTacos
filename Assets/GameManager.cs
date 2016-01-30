@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject mouse;
 	public GameObject turtle;
 	public GameObject selector;
-	public GameObject destination;
+	public GameObject line;
 
 	private GameObject selected;
 
@@ -32,22 +32,11 @@ public class GameManager : MonoBehaviour {
 			selected.transform.position = new Vector3 ((selected.transform.position.x - (float) .1), selected.transform.position.y, 0);
 
 		if (Input.GetMouseButtonDown (0)) {
-			Debug.logger.Log ("Mouse 0 pressed at " + Input.mousePosition.ToString());
-			/*
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			if (selected != null) {
-				Physics.Raycast (ray.origin, selected.transform.position, 100);
-				Debug.DrawLine (ray.origin, selected.transform.position);
-			}
-			if (Physics.Raycast(ray, out hit, 100)) {
-				Debug.DrawLine(ray.origin, hit.point);
-			}
-			Debug.logger.Log (ray.ToString());
-			*/
-			destination.transform.position = Input.mousePosition;
+			LeftMouseStuff ();
 		}
-
+		if (Input.GetMouseButtonDown (1)) {
+			RightMouseStuff ();
+		}
 	}
 
 	private void Select(GameObject chosen){
@@ -55,5 +44,30 @@ public class GameManager : MonoBehaviour {
 		Debug.logger.Log (selected.ToString() + " selected");
 		selector.transform.position = selected.transform.position;
 		selector.transform.SetParent(selected.transform);
+	}
+
+	private void RightMouseStuff(){
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		selected.SendMessage("NewDest", mousePos);
+	}
+
+	private void LeftMouseStuff(){
+		//Debug.logger.Log ("Mouse 0 pressed at " + Input.mousePosition.ToString());
+
+		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+		// Clicked on object
+		if (hit.collider != null) {
+			GameObject hitObject = hit.collider.gameObject;
+			Debug.Log ("Target Position: " + hitObject.transform.position);
+			if (hitObject.CompareTag ("Player"))
+				Select (hitObject);
+
+		// Clicked on background
+		} else if (selected != null) {
+			selected.SendMessage("AddDest", mousePos);
+
+		}
 	}
 }
