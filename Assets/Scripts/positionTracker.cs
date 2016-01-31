@@ -13,8 +13,8 @@ public class positionTracker : MonoBehaviour {
     public bool debugMe;
     public float partnerDistanceThreshold = 1.5f;
     public float nearBossThreshold = 4f;
+    public bool isNearBoss = false;
     public bool readyToAttack = false;
-
     public float lastMove;
     public Vector2 lastPosition;
 
@@ -59,7 +59,6 @@ public class positionTracker : MonoBehaviour {
         //}
         //print("Last pos = " + lastPosition + "  Current position = " + (Vector2)transform.position);
         isMoving = !(lastPosition == (Vector2) transform.position);
-        //print(isMoving);
         lastPosition = transform.position;
     }
 
@@ -145,7 +144,7 @@ public class positionTracker : MonoBehaviour {
         }
     }
 
-    public bool isNearBoss()
+    public bool checkNearBoss()
     {
         return Vector2.Distance(transform.position, boss.transform.position) < nearBossThreshold;
     }

@@ -108,34 +108,36 @@ public class attackScript : MonoBehaviour {
     }
 
 
-    private void startNearAttack2()
-    {
-        SendMessageUpwards("damageToBoss", 1);
-        print("State 6: near attack 2");
-        resetAbilities();
-    }
 
-    private void startFarAttack2()
-    {
-        if (!nearBoss)
-            SendMessageUpwards("damageToBoss", 1);
-        print("State 5: near attack 1");
-        resetAbilities();
-    }
+
+
 
     private void startFarAttack1()
     {
         if (!nearBoss)
-            SendMessageUpwards("damageToBoss", 1);
+            SendMessageUpwards("DamageToBoss", 1);
         print("State 3: far attack 1");
+        resetAbilities();
+    }
+    private void startFarAttack2()
+    {
+        if (!nearBoss)
+            SendMessageUpwards("DamageToBoss", 1);
+        print("State 5: near attack 1");
         resetAbilities();
     }
 
     private void startNearAttack1()
     {
         if (nearBoss)
-            SendMessageUpwards("damageToBoss", 1);
+            SendMessageUpwards("DamageToBoss", 2);
         print("State 2: near attack 1");
+        resetAbilities();
+    }
+    private void startNearAttack2()
+    {
+        SendMessageUpwards("DamageToBoss", 2);
+        print("State 6: near attack 2");
         resetAbilities();
     }
 
@@ -149,7 +151,7 @@ public class attackScript : MonoBehaviour {
     private void startBomb()
     {
         if (nearBoss)
-            SendMessageUpwards("damageToBoss", 1);
+            SendMessageUpwards("DamageToBoss", 1);
         print("State 0: bomb");
         resetAbilities();
     }
@@ -164,6 +166,7 @@ public class attackScript : MonoBehaviour {
         resetAbilities();
 		print ("Shield starting");
     }
+
     private void resetAbilities()
     {
         canSpecial = false;
