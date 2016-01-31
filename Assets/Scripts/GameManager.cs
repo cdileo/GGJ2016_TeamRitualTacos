@@ -38,10 +38,14 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown ("1") & selected != mouse) {
+		if (Input.GetKeyDown ("d")) {
+
+		}
+
+		if (Input.GetKeyDown ("1") && selected != mouse) {
 			Debug.logger.Log ("1 pressed");
 			Select (mouse);
-		} else if (Input.GetKeyDown ("2") & selected != turtle) {
+		} else if (Input.GetKeyDown ("2") && selected != turtle) {
 			Debug.logger.Log ("2 pressed");
 			Select (turtle);
 		}
