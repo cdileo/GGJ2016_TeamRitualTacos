@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	private HealthBar mouseHeartBar;
 	private HealthBar turtleHeartBar;
 
+	GameObject levelMan;
+
 	public int turtleMaxHealth;
 	public int mouseMaxHealth;
     public int monsterMaxHealth; //set per level
@@ -164,13 +166,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win(){
-		// TODO
 		print ("You win!");
+		levelMan = GameObject.Find("LevelManager");
+		(levelMan.GetComponent<LevelManagerScript>()).nextLevel();
 	}
 
 	public void Lose(){
-		// TODO
 		print ("You Lose!");
+		// TODO
 	}
 
 	public void Dead(){
