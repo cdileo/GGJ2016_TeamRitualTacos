@@ -38,8 +38,12 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown ("d")) {
+		if (Input.GetKeyDown (KeyCode.D)) {
+			DamageToTurtle (2);
+		}
 
+		if (Input.GetKeyDown (KeyCode.G)) {
+			HealTurtle (1);
 		}
 
 		if (Input.GetKeyDown ("1") && selected != mouse) {
@@ -102,6 +106,45 @@ public class GameManager : MonoBehaviour {
 			heartPos.x += i;
 			turtleHearts [i] = Instantiate (turtleHeartOrigin, heartPos, Quaternion.identity) as GameObject;
 		}
-			
+		turtleHealth = turtleMaxHealth;	
+
+		mouseHearts = new GameObject[mouseMaxHealth];
+		for (int i = 0; i < mouseMaxHealth; i++) {
+			Vector3 heartPos = mouseHeartOrigin.transform.position;
+			heartPos.x += i;
+			mouseHearts [i] = Instantiate (mouseHeartOrigin, heartPos, Quaternion.identity) as GameObject;
+		}
+		monsterHealth = monsterMaxHealth;	
+
+		monsterHearts = new GameObject[monsterMaxHealth];
+		for (int i = 0; i < monsterMaxHealth; i++) {
+			Vector3 heartPos = monsterHeartOrigin.transform.position;
+			heartPos.x += i;
+			monsterHearts [i] = Instantiate (monsterHeartOrigin, heartPos, Quaternion.identity) as GameObject;
+		}
+		monsterHealth = monsterMaxHealth;	
+	}
+
+	void HealTurtle(int heal){
+		if (turtleHealth < turtleMaxHealth) {
+			SpriteRenderer renderer = turtleHearts [turtleHealth].GetComponent<SpriteRenderer> (); 
+			renderer.color = Color.green;
+			turtleHealth++;
+			print (turtleHealth);
+		}
+	}
+
+	void DamageToTurtle(int damage){
+		SpriteRenderer renderer = turtleHearts[turtleHealth-1].GetComponent<SpriteRenderer> (); 
+		renderer.color = Color.black;
+		turtleHealth--;
+		print (turtleHealth);
+	}
+
+	void DamageToBoss(int damage) {
+		print (" I'm here");
+		SpriteRenderer renderer = monsterHearts[monsterHealth-1].GetComponent<SpriteRenderer> (); 
+		renderer.color = Color.black;
+		monsterHealth--;
 	}
 }
