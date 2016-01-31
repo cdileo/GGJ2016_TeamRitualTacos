@@ -21,13 +21,6 @@ public class GameManager : MonoBehaviour {
 	public int mouseMaxHealth;
     public int monsterMaxHealth; //set per level
 
-	private int turtleHealth;
-	private int mouseHealth;
-	private int monsterHealth;
-	private GameObject[] turtleHearts;
-	private GameObject[] mouseHearts;
-	private GameObject[] monsterHearts;
-
     private int turtleDefense = 0;
     private int mouseDefense = 0;
     private int bossDefense = 0;
