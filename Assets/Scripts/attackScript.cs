@@ -20,12 +20,14 @@ public class attackScript : MonoBehaviour {
     public GameObject indicatorHolder;
     public float sheildChargeTime = .5f;
     public float shieldLifetime = 2;
+    public Animator myAnimator;
 
     private GameObject activeIndicator;
     private float lastAttack;
     private float lastMove;
     private float lastSpecial;
     private bool nearBoss;
+
 
     void Start () {
         lastAttack = Time.time;
@@ -61,6 +63,7 @@ public class attackScript : MonoBehaviour {
     {
         print("Attacking....");
         SendMessageUpwards("playSound", 1);
+        myAnimator.SetTrigger("Attack");
         hasMovedSinceLast = false;
         canSpecial = false;
     }
