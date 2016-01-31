@@ -7,6 +7,7 @@ TagManager:
   - Selector
   - MouseDestination
   - TurtleDestination
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
   - name: Walls
     uniqueID: 1657370901
     locked: 0
+  - name: Floor
+    uniqueID: 2889232625
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -52,4 +56,10 @@ TagManager:
     locked: 0
   - name: Selector
     uniqueID: 3164592493
+    locked: 0
+  - name: Boss
+    uniqueID: 2254494995
+    locked: 0
+  - name: Effects
+    uniqueID: 18522981
     locked: 0

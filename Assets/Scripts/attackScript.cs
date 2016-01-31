@@ -87,5 +87,6 @@ public class attackScript : MonoBehaviour {
         canSpecial = false;
         canAttack = false;
         hasMovedSinceLast = false;
+		print ("Shield starting");
     }
 }

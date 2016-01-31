@@ -6,11 +6,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject mouse;
 	public GameObject turtle;
 	public GameObject selector;
+	public GameObject floor;
 
 	private GameObject selected;
 
 	// Use this for initialization
 	void Awake () {
+		Renderer floorRend = floor.GetComponent<Renderer> ();
+		mouse.SendMessage ("PassFloor", floorRend);
+		turtle.SendMessage ("PassFloor", floorRend);
 	}
 	
 	// Update is called once per frame

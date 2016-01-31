@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class PlayerMovement : MonoBehaviour {
 
 	public GameObject destToken;
-	public GameObject floor;
 	public int speed;
 
 	private Vector3 newDest;
@@ -19,14 +18,9 @@ public class PlayerMovement : MonoBehaviour {
 	float maxY;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		moveQueue = new Queue<Vector3> ();
 		newDest = noDest;
-		floorRend = floor.GetComponent<Renderer> ();
-		minX = floorRend.bounds.min.x;
-		maxX = floorRend.bounds.max.x;
-		minY = floorRend.bounds.min.y;
-		maxY = floorRend.bounds.max.y;
 	}
 	
 	// Update is called once per frame
@@ -72,5 +66,12 @@ public class PlayerMovement : MonoBehaviour {
 		mousePos.x = Mathf.Clamp (mousePos.x, minX, maxX);
 		mousePos.y = Mathf.Clamp (mousePos.y, minY, maxY);
 		return mousePos;
+	}
+
+	void PassFloor(Renderer floor){
+		minX = floor.bounds.min.x;
+		maxX = floor.bounds.max.x;
+		minY = floor.bounds.min.y;
+		maxY = floor.bounds.max.y;
 	}
 }
