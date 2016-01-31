@@ -190,7 +190,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c7cf6c812141e084cae66e41a876b9d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4baf985baa990847a00dc6b059e68ff, type: 3}
   m_Color: {r: 0.099913515, g: 0.64705884, b: 0.23952982, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -229,6 +229,7 @@ MonoBehaviour:
   isSpecialing: 0
   isAttacking: 0
   isMoving: 0
+  hasMovedSinceLast: 0
   indicatorPrefab: {fileID: 153522, guid: 72203e8487f2cdb47bf7fa83dc5cd586, type: 2}
   indicatorHolder: {fileID: 1507499077}
   sheildChargeTime: 0.5
@@ -245,8 +246,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partner: {fileID: 680703921}
+  partnerTracker: {fileID: 0}
   boss: {fileID: 1163407620}
   moveSpeed: 5
+  moveCoolDown: 2
   moveEnabled: 1
   debugMe: 0
   partnerDistanceThreshold: 1.5
@@ -261,6 +264,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 680703923}
   - 212: {fileID: 680703922}
+  - 114: {fileID: 680703924}
   m_Layer: 0
   m_Name: mouse
   m_TagString: Untagged
@@ -311,6 +315,27 @@ Transform:
   - {fileID: 1635950772}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &680703924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680703921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2529344c75df5a4da1c0ea261d6931b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partner: {fileID: 242655915}
+  partnerTracker: {fileID: 0}
+  boss: {fileID: 1163407620}
+  moveSpeed: 5
+  moveCoolDown: 2
+  moveEnabled: 0
+  debugMe: 0
+  partnerDistanceThreshold: 1.5
+  nearBossThreshold: 4
+  lastMove: 0
 --- !u!1 &1163407620
 GameObject:
   m_ObjectHideFlags: 0

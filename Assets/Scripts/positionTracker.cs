@@ -5,20 +5,21 @@ public class positionTracker : MonoBehaviour {
 
     // public vars
     public GameObject partner;
+    public positionTracker partnerTracker;
     public GameObject boss;
     public float moveSpeed = 5f;
+    public float moveCoolDown = 2f;
     public bool moveEnabled = false;
     public bool debugMe;
     public float partnerDistanceThreshold = 1.5f;
     public float nearBossThreshold = 4f;
+    public bool readyToAttack = false;
 
     public float lastMove;
 
     // private
     private Transform partnerTransform;
     private bool isMoving = false;
-    private bool canAction = false;
-    private Vector3 myLastPosition;
 
     private const float piBy8 = Mathf.PI / 8;
     
@@ -27,7 +28,9 @@ public class positionTracker : MonoBehaviour {
         if (partner != null)
         {
             partnerTransform = partner.transform;
-            myLastPosition = this.transform.position;
+            partnerTracker = partner.GetComponent<positionTracker>();
+            if (partnerTracker == null)
+                print("You forgot to attach a tracker to one of the chars");
         }
 	}
 	
@@ -36,10 +39,10 @@ public class positionTracker : MonoBehaviour {
 	void Update () {
         isMoving = false;
 
-        if (Input.GetButtonDown("Jump"))
+        if (debugMe && Input.GetButtonDown("Jump"))
         {
-            if (debugMe) print("Partner direction = " + partnerDirection());
-            if (debugMe) print("Partner is within our threshold distance: " + checkPartnerDistance());
+            print("Partner direction = " + partnerDirection());
+            print("Partner is within our threshold distance: " + checkPartnerDistance());
         }
 
         if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
@@ -55,12 +58,13 @@ public class positionTracker : MonoBehaviour {
     }
 
     // dump all that decision logic here
-    private bool canAttack()
+    public bool canAttack()
     {
-        return true;
+        readyToAttack = (Time.time - lastMove) > moveCoolDown;
+        return readyToAttack;
     }
 
-    private bool canMove()
+    public bool canMove()
     {
         return true;
     }

@@ -40,7 +40,7 @@ public class attackScript : MonoBehaviour {
             if (canSpecial)
             {
                 triggerSpecial(pt.getPartnerDirection());
-            } else
+            } else if (canAttack)
             {
                 attack();
             }
@@ -49,15 +49,17 @@ public class attackScript : MonoBehaviour {
             hasMovedSinceLast = true;
         }
 
-        canSpecial = (Time.time - lastMove > moveCoolDown) && 
+        canSpecial = pt.canAttack() && pt.partnerTracker.canAttack() &&
                     pt.getPartnerDirection() != -1 && 
                     hasMovedSinceLast;
-        lastMove = pt.lastMove;
+        canAttack = pt.canAttack() && hasMovedSinceLast;
     }
 
     private void attack()
     {
-        
+        print("Attacking....");
+        hasMovedSinceLast = false;
+        canSpecial = false;
     }
 
     private void triggerSpecial(int state)
@@ -83,6 +85,7 @@ public class attackScript : MonoBehaviour {
         activeIndicator.transform.parent = this.transform;
         Destroy(activeIndicator, shieldLifetime);
         canSpecial = false;
+        canAttack = false;
         hasMovedSinceLast = false;
     }
 }
