@@ -173,7 +173,8 @@ public class GameManager : MonoBehaviour {
 
 	public void Lose(){
 		print ("You Lose!");
-		// TODO
+		levelMan = GameObject.Find("LevelManager");
+		//(levelMan.GetComponent<LevelManagerScript>()).loadDeath();
 	}
 
 	public void Dead(){
