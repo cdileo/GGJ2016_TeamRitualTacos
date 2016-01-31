@@ -362,6 +362,10 @@ Prefab:
       propertyPath: m_TagString
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 6168644, guid: 3b699237a7a63c445839127fbf1ef3bd, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b699237a7a63c445839127fbf1ef3bd, type: 2}
   m_IsPrefabParent: 0
@@ -427,7 +431,7 @@ Transform:
   m_LocalScale: {x: 3.0715504, y: 2.9896693, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
 --- !u!1 &1346168610
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +489,7 @@ Transform:
   m_LocalScale: {x: 2.6042905, y: 4.9739184, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
 --- !u!1 &1414137793
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
 --- !u!1 &1447036356 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 128846, guid: 0c054124a673d4948987acc76c1bf9fb, type: 2}
@@ -561,7 +565,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 440718, guid: cde23aebd552c1e41a79b38d0cd5599c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.68
+      value: -5.39
       objectReference: {fileID: 0}
     - target: {fileID: 440718, guid: cde23aebd552c1e41a79b38d0cd5599c, type: 2}
       propertyPath: m_LocalPosition.y
@@ -641,6 +645,10 @@ Prefab:
       propertyPath: partner
       value: 
       objectReference: {fileID: 734232222}
+    - target: {fileID: 11482388, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 1346168610}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
   m_IsPrefabParent: 0
@@ -675,6 +683,12 @@ MonoBehaviour:
   turtle: {fileID: 239078382}
   selector: {fileID: 1143791467}
   floor: {fileID: 1337391009}
+  turtleHeartOrigin: {fileID: 0}
+  mouseHeartOrigin: {fileID: 0}
+  monsterHeartOrigin: {fileID: 0}
+  turtleMaxHealth: 0
+  mouseMaxHealth: 0
+  monsterMaxHealth: 0
 --- !u!4 &1649586169
 Transform:
   m_ObjectHideFlags: 0
@@ -686,7 +700,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 8
 --- !u!1001 &1711013890
 Prefab:
   m_ObjectHideFlags: 0
@@ -766,7 +780,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 480012, guid: 6f13cb2e43d45d0419d95f88cd378b34, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.48
+      value: -5.69
       objectReference: {fileID: 0}
     - target: {fileID: 480012, guid: 6f13cb2e43d45d0419d95f88cd378b34, type: 2}
       propertyPath: m_LocalPosition.y

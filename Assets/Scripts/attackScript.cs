@@ -151,7 +151,7 @@ public class attackScript : MonoBehaviour {
     private void startBomb()
     {
         if (nearBoss)
-            SendMessageUpwards("DamageToBoss", 1);
+            SendMessageUpwards("DamageToBoss", 3);
         print("State 0: bomb");
         resetAbilities();
     }
