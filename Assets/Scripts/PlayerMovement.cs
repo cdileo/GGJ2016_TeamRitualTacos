@@ -7,15 +7,18 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject destToken;
 	public int speed;
 
+
+
 	private Vector3 newDest;
 	private Vector3 noDest = new Vector3(9999, 9999, 0);
 	private Queue<Vector3> moveQueue;
 	private Renderer floorRend;
 
-	float minX;
-	float maxX;
-	float minY;
-	float maxY;
+	private float minX;
+	private float maxX;
+	private float minY;
+	private float maxY;
+
 
 	// Use this for initialization
 	void Awake () {
@@ -74,4 +77,5 @@ public class PlayerMovement : MonoBehaviour {
 		minY = floor.bounds.min.y;
 		maxY = floor.bounds.max.y;
 	}
+
 }
