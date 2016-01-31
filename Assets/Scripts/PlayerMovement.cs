@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		// Get new dest if needed
 		if (newDest == noDest) {
-			if (moveQueue.Count > 0) {
+			if (moveQueue != null && moveQueue.Count > 0) {
 				newDest = moveQueue.Dequeue ();
 			}
 		}

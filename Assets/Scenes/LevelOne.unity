@@ -807,6 +807,7 @@ MonoBehaviour:
   turtle: {fileID: 239078382}
   selector: {fileID: 1143791467}
   floor: {fileID: 1337391009}
+  heartPrefab: {fileID: 192024, guid: 1db6281aa6971ec4294310584d7a0696, type: 2}
   turtleHeartOrigin: {fileID: 964041859}
   mouseHeartOrigin: {fileID: 503876709}
   monsterHeartOrigin: {fileID: 688022044}
