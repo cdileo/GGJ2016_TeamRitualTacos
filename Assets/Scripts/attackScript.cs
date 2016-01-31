@@ -15,6 +15,7 @@ public class attackScript : MonoBehaviour {
     public bool isSpecialing = false;
     public bool isAttacking = false;
     public bool isMoving = false;
+    public bool hasMovedSinceLast = false;
     public GameObject indicatorPrefab;
     public GameObject indicatorHolder;
     public float sheildChargeTime = .5f;
@@ -25,30 +26,47 @@ public class attackScript : MonoBehaviour {
     private float lastMove;
     private float lastSpecial;
 
-    // Use this for initialization
     void Start () {
         lastAttack = Time.time;
         lastMove = Time.time;
         lastSpecial = Time.time;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        isMoving = pt.getIsMoving();
+        if (!isMoving)
         {
-            triggerSpecial(pt.getPartnerDirection());
+            if (canSpecial)
+            {
+                triggerSpecial(pt.getPartnerDirection());
+            } else if (canAttack)
+            {
+                attack();
+            }
+        } else
+        {
+            hasMovedSinceLast = true;
         }
-        canSpecial = Time.time - lastMove > moveCoolDown;
-        lastMove = pt.lastMove;
+
+        canSpecial = pt.canAttack() && pt.partnerTracker.canAttack() &&
+                    pt.getPartnerDirection() != -1 && 
+                    hasMovedSinceLast;
+        canAttack = pt.canAttack() && hasMovedSinceLast;
+    }
+
+    private void attack()
+    {
+        print("Attacking....");
+        hasMovedSinceLast = false;
+        canSpecial = false;
     }
 
     private void triggerSpecial(int state)
     {
         if (state == -1)
-            return;
-        else if (!canSpecial)
         {
+            print("WTF did you do? We shouldn't be hitting this condition....");
             return;
         }
         // init this special 
@@ -67,5 +85,7 @@ public class attackScript : MonoBehaviour {
         activeIndicator.transform.parent = this.transform;
         Destroy(activeIndicator, shieldLifetime);
         canSpecial = false;
+        canAttack = false;
+        hasMovedSinceLast = false;
     }
 }
