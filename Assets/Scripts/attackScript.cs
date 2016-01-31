@@ -14,8 +14,8 @@ public class attackScript : MonoBehaviour {
     public bool canSpecial = false;
     public bool isSpecialing = false;
     public bool isAttacking = false;
-    public bool isMoving = false;
-    public bool hasMovedSinceLast = false;
+    public bool isMoving = true;
+    public bool hasMovedSinceLast = true;
     public GameObject indicatorPrefab;
     public GameObject indicatorHolder;
     public float sheildChargeTime = .5f;
@@ -87,5 +87,6 @@ public class attackScript : MonoBehaviour {
         canSpecial = false;
         canAttack = false;
         hasMovedSinceLast = false;
+        print("HOLY SHIT");
     }
 }
