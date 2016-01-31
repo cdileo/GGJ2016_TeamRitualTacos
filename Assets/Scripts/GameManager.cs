@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject mouse;
 	public GameObject turtle;
 	public GameObject selector;
-	public GameObject line;
 
 	private GameObject selected;
 
