@@ -4,7 +4,7 @@ using System.Collections;
 public class bossScript : MonoBehaviour {
 
     public GameObject turtle;
-    public GameObject rabbit;
+    public GameObject mouse;
     public Snail snail1;
     public Crab crab1;
     public Octopus octo1;
@@ -34,7 +34,7 @@ public class bossScript : MonoBehaviour {
     private bool checkNear()
     {
         return Vector2.Distance(turtle.transform.position, transform.position) < nearThreshold
-            && Vector2.Distance(rabbit.transform.position, transform.position) < nearThreshold;
+            && Vector2.Distance(mouse.transform.position, transform.position) < nearThreshold;
     }
 
     private void logic()
@@ -45,20 +45,20 @@ public class bossScript : MonoBehaviour {
         {
             case 1: //snail
                 if (playerNear)
-                    snail1.NearMechanics(stage, turtle.transform.position, rabbit.transform.position);
+                    snail1.NearMechanics(stage, turtle.transform.position, mouse.transform.position);
                 else
-                    snail1.FarMechanics(stage, turtle.transform.position, rabbit.transform.position);
+                    snail1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
                 break;
 
             case 2: //crab
                 if (playerNear)
-                    crab1.NearMechanics(stage, turtle.transform.position, rabbit.transform.position);
+                    crab1.NearMechanics(stage, turtle.transform.position, mouse.transform.position);
                 else
-                    crab1.FarMechanics(stage, turtle.transform.position, rabbit.transform.position);
+                    crab1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
                 break;
 
             case 3: //octopus
-                octopus1.Mechanics(stage, turtle.transform.position, rabbit.transform.position);
+                octo1.Mechanics(stage, turtle.transform.position, mouse.transform.position);
                 break;
 
             default:
