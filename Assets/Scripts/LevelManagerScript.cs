@@ -31,4 +31,10 @@ public class LevelManagerScript : MonoBehaviour {
     {
         Application.LoadLevel(0);
     }
+
+    public void loadDeath()
+    {
+        Application.LoadLevel(7);
+
+    }
 }

@@ -107,9 +107,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-
-
-
+    
 	void HealTurtle(int heal){
 		turtleHeartBar.Heal (heal);
 	}
