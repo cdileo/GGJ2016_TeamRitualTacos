@@ -8,6 +8,22 @@ public class GameManager : MonoBehaviour {
 	public GameObject selector;
 	public GameObject floor;
 
+
+	public GameObject turtleHeartOrigin;
+	public GameObject mouseHeartOrigin;
+	public GameObject monsterHeartOrigin;
+
+	public int turtleMaxHealth;
+	public int mouseMaxHealth;
+	public int monsterMaxHealth;
+
+	private int turtleHealth;
+	private int mouseHealth;
+	private int monsterHealth;
+	private GameObject[] turtleHearts;
+	private GameObject[] mouseHearts;
+	private GameObject[] monsterHearts;
+
 	private GameObject selected;
 
 	// Use this for initialization
@@ -15,6 +31,8 @@ public class GameManager : MonoBehaviour {
 		Renderer floorRend = floor.GetComponent<Renderer> ();
 		mouse.SendMessage ("PassFloor", floorRend);
 		turtle.SendMessage ("PassFloor", floorRend);
+
+		SetHearts ();
 	}
 	
 	// Update is called once per frame
@@ -45,7 +63,9 @@ public class GameManager : MonoBehaviour {
 
 	private void RightMouseStuff(){
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		selected.SendMessage("NewDest", mousePos);
+		if (selected != null) {
+			selected.SendMessage ("NewDest", mousePos);
+		}
 	}
 
 	private void LeftMouseStuff(){
@@ -60,7 +80,7 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Target Position: " + hitObject.transform.position);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
-			else if (hitObject.CompareTag ("Floor"))
+			else if (hitObject.CompareTag ("Floor") & selected != null)
 				selected.SendMessage("AddDest", mousePos);
 
 		// Clicked on Nothing
@@ -68,5 +88,16 @@ public class GameManager : MonoBehaviour {
 			selected.SendMessage("AddDest", mousePos);
 
 		}
+	}
+
+
+	private void SetHearts(){
+		turtleHearts = new GameObject[turtleMaxHealth];
+		for (int i = 0; i < turtleMaxHealth; i++) {
+			Vector3 heartPos = turtleHeartOrigin.transform.position;
+			heartPos.x += i;
+			turtleHearts [i] = Instantiate (turtleHeartOrigin, heartPos, Quaternion.identity) as GameObject;
+		}
+			
 	}
 }
