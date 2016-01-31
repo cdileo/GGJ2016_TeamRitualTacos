@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.D)) {
 			DamageToTurtle (2);
 		}
-
 		if (Input.GetKeyDown (KeyCode.G)) {
 			HealTurtle (1);
 		}
@@ -142,7 +141,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void DamageToBoss(int damage) {
-		print (" I'm here");
 		SpriteRenderer renderer = monsterHearts[monsterHealth-1].GetComponent<SpriteRenderer> (); 
 		renderer.color = Color.black;
 		monsterHealth--;

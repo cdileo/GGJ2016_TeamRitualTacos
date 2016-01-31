@@ -78,4 +78,11 @@ public class PlayerMovement : MonoBehaviour {
 		maxY = floor.bounds.max.y;
 	}
 
+	void OnCollisionEnter (Collision other){
+		print (other.gameObject.tag);
+		if (other.gameObject.CompareTag ("Potion")) {
+			print (" I'm here");
+			SendMessageUpwards ("HealTurtle", 1);
+		}
+	}
 }
