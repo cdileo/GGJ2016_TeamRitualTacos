@@ -6,7 +6,17 @@ public class StoryController : MonoBehaviour {
 
 
 	public Text textBox;
-	private string[] story = { "line 1", "line 2" };
+	private string[] story = { "When a plague flowed in to his ocean kingdom, " +  
+            "the Octopus King turned his many eyes toward the land." +
+            "Blaming the creatures of the forest and river for the suffering of his subjects,"
+            + " he began plotting for war....",
+            "The denizens of the land were worried, " + 
+            "but felt the pain of the ocean creatures. " +
+            "They called on the revered Star Platypus to calm the Octopus King " +
+            "and offer what help the land could provide.",
+            "The Octopus King had no interest in help and threw Star Platypus in prison."
+            + " Rumours have come back to the land that the Octopus King is planning " +
+            "to sacrifce Star Platypus for some dark purpose....." };
 	private int position;
 
 	// Use this for initialization
@@ -24,7 +34,7 @@ public class StoryController : MonoBehaviour {
 		if (position < story.Length - 1) {
 			textBox.text = story [++position];
 		} else {
-			// TODO
+			// TODO: move to next scene
 		}
 	}
 }
