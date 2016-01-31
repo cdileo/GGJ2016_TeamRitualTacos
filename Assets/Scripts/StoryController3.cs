@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StoryController3 : MonoBehaviour
 {
-
+    GameObject levelMan;
 
     public Text textBox;
     private string[] story = { "Octopus: \"So, you scrawny miscreants made it all the way here.\"",
@@ -36,7 +36,8 @@ public class StoryController3 : MonoBehaviour
             textBox.text = story[++position];
         }
         else {
-            // TODO: move to next scene
+            levelMan = GameObject.Find("LevelManager");
+            (levelMan.GetComponent<LevelManagerScript>()).nextLevel();
         }
     }
 }

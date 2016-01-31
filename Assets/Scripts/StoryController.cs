@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class StoryController : MonoBehaviour {
 
+    GameObject levelMan;
 
 	public Text textBox;
 	private string[] story = { "When a plague flowed in to his ocean kingdom, " +  
@@ -37,7 +38,8 @@ public class StoryController : MonoBehaviour {
 		if (position < story.Length - 1) {
 			textBox.text = story [++position];
 		} else {
-            //GameObject.Find("LevelManager");
+            levelMan= GameObject.Find("LevelManager");
+            (levelMan.GetComponent<LevelManagerScript>()).nextLevel();
 		}
 	}
 }

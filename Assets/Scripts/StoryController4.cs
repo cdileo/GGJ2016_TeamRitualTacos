@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StoryController4 : MonoBehaviour
 {
-
+    GameObject levelMan;
 
     public Text textBox;
     private string[] story = { "Turtle: \"Star Platypus! Star Platypus! Where are you?!\"",
@@ -39,7 +39,8 @@ public class StoryController4 : MonoBehaviour
             textBox.text = story[++position];
         }
         else {
-            // TODO: move to next scene
+            levelMan = GameObject.Find("LevelManager");
+            (levelMan.GetComponent<LevelManagerScript>()).nextLevel();
         }
     }
 }
