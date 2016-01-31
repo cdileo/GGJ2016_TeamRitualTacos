@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour {
 
     void playSoundAtAudioManager (int soundIndex)
     {
+		print ("Im here");
         sounds[soundIndex].Play();
     }
 }

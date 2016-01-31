@@ -58,7 +58,7 @@ public class bossScript : MonoBehaviour {
                 break;
 
             case 3: //octopus
-                octo1.Mechanics(stage, turtle.transform.position, rabbit.transform.position);
+                octo1.Mechanics(stage, turtle.transform.position, mouse.transform.position);
                 break;
 
             default:

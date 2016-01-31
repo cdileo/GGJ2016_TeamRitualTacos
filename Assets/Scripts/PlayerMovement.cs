@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour {
 	void AddDest(Vector2 mousePos){
 		mousePos = ClampMousePos (mousePos);
 		moveQueue.Enqueue (mousePos);
-		destToken.transform.position =  new Vector3(mousePos.x, mousePos.y, 0);
+		destToken.transform.position =  new Vector3(mousePos.x, mousePos.y, 1);
 	}
 
 	void NewDest(Vector2 mousePos){
