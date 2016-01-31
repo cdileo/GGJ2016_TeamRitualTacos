@@ -24,12 +24,6 @@ public class GameManager : MonoBehaviour {
 			Select (turtle);
 		}
 
-		// Just to test selector folowing selected player
-		if (Input.GetKey ("right") & selected != null)
-			selected.transform.position = new Vector3 ((selected.transform.position.x + (float) .1), selected.transform.position.y, 0);
-		if (Input.GetKey ("left") & selected != null)
-			selected.transform.position = new Vector3 ((selected.transform.position.x - (float) .1), selected.transform.position.y, 0);
-
 		if (Input.GetMouseButtonDown (0)) {
 			LeftMouseStuff ();
 		}
@@ -62,8 +56,10 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Target Position: " + hitObject.transform.position);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
+			else if (hitObject.CompareTag ("Floor"))
+				selected.SendMessage("AddDest", mousePos);
 
-		// Clicked on background
+		// Clicked on Nothing
 		} else if (selected != null) {
 			selected.SendMessage("AddDest", mousePos);
 
