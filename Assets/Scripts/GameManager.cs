@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	private HealthBar mouseHeartBar;
 	private HealthBar turtleHeartBar;
 
+	GameObject levelMan;
+
 	public int turtleMaxHealth;
 	public int mouseMaxHealth;
     public int monsterMaxHealth; //set per level
@@ -41,10 +43,10 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.D)) {
-			DamageToBoss (2);
+			DamageToBoss (1);
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
-			HealBoss (2);
+			HealBoss (1);
 		}
 		if (Input.GetKeyDown (KeyCode.C)) {
 			DamageToMouse (1);
@@ -95,12 +97,12 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Target Position: " + hitObject.transform.position);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
-			else if (hitObject.CompareTag ("Floor") & selected != null)
-				selected.SendMessage("AddDest", mousePos);
+			//else if (hitObject.CompareTag ("Floor") & selected != null)
+				//selected.SendMessage("AddDest", mousePos);
 
 		// Clicked on Nothing
-		} else if (selected != null) {
-			selected.SendMessage("AddDest", mousePos);
+		//} else if (selected != null) {
+		//	selected.SendMessage("AddDest", mousePos);
 
 		}
 	}
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour {
 
 	void DamageToTurtle(int damage){
         if (damage - turtleDefense > 0)
-            turtleHeartBar.Damage(turtleDefense - damage);
+			turtleHeartBar.Damage(damage - turtleDefense);
     }
 
 	void HealMouse(int heal){
@@ -121,12 +123,13 @@ public class GameManager : MonoBehaviour {
 
 	void DamageToMouse(int damage){
         if(damage - mouseDefense > 0)
-		    mouseHeartBar.Damage (mouseDefense - damage);
+			mouseHeartBar.Damage (damage - mouseDefense);
 	}
 
 	void DamageToBoss(int damage) {
+		print ("damage = " + damage + " Defense: " + bossDefense);
         if (damage - bossDefense > 0)
-            monsterHeartBar.Damage(bossDefense - damage);
+			monsterHeartBar.Damage(damage - bossDefense);
     }
 
 
@@ -161,13 +164,23 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Win(){
-		// TODO
 		print ("You win!");
+		levelMan = GameObject.Find("LevelManager");
+		(levelMan.GetComponent<LevelManagerScript>()).nextLevel();
+	}
+
+	public void Lose(){
+		print ("You Lose!");
+		levelMan = GameObject.Find("LevelManager");
+		//(levelMan.GetComponent<LevelManagerScript>()).loadDeath();
 	}
 
 	public void Dead(){
-		// TODO
-		print ("Dead!");
+		if (monsterHeartBar.getHealth() == 0) {
+			Win ();
+		} else {
+			Lose ();
+		}
 	}
 
 
@@ -225,7 +238,7 @@ public class GameManager : MonoBehaviour {
 			}		
 		}
 
-		public void Heal(int heal){
+		public void Heal(int heal){ 
 			for (int i = 0; i < heal; i++) {
 				if (health < maxHealth) {
 					SpriteRenderer heartRenderer = heartContainer [health].GetComponent<SpriteRenderer> (); 
