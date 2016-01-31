@@ -25,6 +25,7 @@ public class attackScript : MonoBehaviour {
     private float lastAttack;
     private float lastMove;
     private float lastSpecial;
+    private bool nearBoss;
 
     void Start () {
         lastAttack = Time.time;
@@ -35,6 +36,7 @@ public class attackScript : MonoBehaviour {
     void Update()
     {
         isMoving = pt.getIsMoving();
+        nearBoss = pt.isNearBoss();
         if (!isMoving)
         {
             if (canSpecial)
@@ -69,24 +71,103 @@ public class attackScript : MonoBehaviour {
             print("WTF did you do? We shouldn't be hitting this condition....");
             return;
         }
-        // init this special 
-        if (state == 4)
+        // what's a switch statement?
+        if(state == 0)
         {
-            startShield();
+            startBomb();
+        }
+        else if (state == 1)
+        {
+            doNothingAtAll();
+        }
+        else if (state == 2)
+        {
+            startNearAttack1();
+        }
+        else if (state == 3)
+        {
+            startFarAttack1();
+        }
+        else if (state == 4)
+        {
+            startDefence();
+        }
+        else if (state == 5)
+        {
+            startFarAttack2();
+        }
+        else if (state == 6)
+        {
+            startNearAttack2();
+        }
+        else if (state == 7)
+        {
+            doNothingAtAll();
         }
         // set special cooldown
     }
 
-    private void startShield()
+
+    private void startNearAttack2()
+    {
+        SendMessageUpwards("damageToBoss", 1);
+        print("State 6: near attack 2");
+        resetAbilities();
+    }
+
+    private void startFarAttack2()
+    {
+        if (!nearBoss)
+            SendMessageUpwards("damageToBoss", 1);
+        print("State 5: near attack 1");
+        resetAbilities();
+    }
+
+    private void startFarAttack1()
+    {
+        if (!nearBoss)
+            SendMessageUpwards("damageToBoss", 1);
+        print("State 3: far attack 1");
+        resetAbilities();
+    }
+
+    private void startNearAttack1()
+    {
+        if (nearBoss)
+            SendMessageUpwards("damageToBoss", 1);
+        print("State 2: near attack 1");
+        resetAbilities();
+    }
+
+    private void doNothingAtAll()
+    {
+        SendMessageUpwards("IPutOnMyRobeAndWizardHat", 1,SendMessageOptions.DontRequireReceiver);
+        print("State 1 or 7: not wearing pants...");
+        resetAbilities();
+    }
+
+    private void startBomb()
+    {
+        if (nearBoss)
+            SendMessageUpwards("damageToBoss", 1);
+        print("State 0: bomb");
+        resetAbilities();
+    }
+
+    private void startDefence()
     {
         activeIndicator = Instantiate(  indicatorPrefab, 
                                         indicatorHolder.transform.position,
                                         indicatorHolder.transform.rotation) as GameObject;
         activeIndicator.transform.parent = this.transform;
         Destroy(activeIndicator, shieldLifetime);
+        resetAbilities();
+		print ("Shield starting");
+    }
+    private void resetAbilities()
+    {
         canSpecial = false;
         canAttack = false;
         hasMovedSinceLast = false;
-		print ("Shield starting");
     }
 }
