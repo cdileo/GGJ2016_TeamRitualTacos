@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 
 	public int turtleMaxHealth;
 	public int mouseMaxHealth;
-	public int monsterMaxHealth;
+	public int monsterMaxHealth = 10;//for snail for testing
 
 	private int turtleHealth;
 	private int mouseHealth;
@@ -120,29 +120,41 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void DamageToTurtle(int damage){
-		turtleHeartBar.Damage (damage);
-	}
+        if (damage - turtleDefense > 0)
+            turtleHeartBar.Damage(turtleDefense - damage);
+    }
 
 	void HealMouse(int heal){
 		mouseHeartBar.Heal (heal);
 	}
 
 	void DamageToMouse(int damage){
-		mouseHeartBar.Damage (damage);
+        if(damage - mouseDefense > 0)
+		    mouseHeartBar.Damage (mouseDefense - damage);
 	}
 
 	void DamageToBoss(int damage) {
-		monsterHeartBar.Damage (damage);
-	}
+        if (damage - bossDefense > 0)
+            monsterHeartBar.Damage(bossDefense - damage);
+    }
 
 
     void BossDefense(int i)
     {
         bossDefense = i;
-
     }
 
-	void HealBoss (int heal){
+    void TurtleDefense(int i)
+    {
+        turtleDefense = i;
+    }
+
+    void MouseDefense(int i)
+    {
+        mouseDefense = i;
+    }
+
+    void HealBoss (int heal){
 		monsterHeartBar.Heal (heal);
 	}
 
@@ -166,6 +178,9 @@ public class GameManager : MonoBehaviour {
 		// TODO
 		print ("Dead!");
 	}
+
+
+
 
 	public class HealthBar {
 
