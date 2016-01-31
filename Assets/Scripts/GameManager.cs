@@ -242,6 +242,6 @@ public class GameManager : MonoBehaviour {
 
     void playSound(int soundNumber)
     {
-        SendMessage("playSoundAtAudioManager", soundNumber);
+		SendMessage("playSoundAtAudioManager", soundNumber, SendMessageOptions.DontRequireReceiver);
     }
 }
