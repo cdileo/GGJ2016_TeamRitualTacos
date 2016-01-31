@@ -60,6 +60,7 @@ public class attackScript : MonoBehaviour {
     private void attack()
     {
         print("Attacking....");
+        SendMessageUpwards("playSound", 1);
         hasMovedSinceLast = false;
         canSpecial = false;
     }
@@ -106,11 +107,6 @@ public class attackScript : MonoBehaviour {
         }
         // set special cooldown
     }
-
-
-
-
-
 
     private void startFarAttack1()
     {

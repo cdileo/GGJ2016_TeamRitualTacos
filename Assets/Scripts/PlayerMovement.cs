@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		// Get new dest if needed
 		if (newDest == noDest) {
-			if (moveQueue.Count > 0) {
+			if (moveQueue != null && moveQueue.Count > 0) {
 				newDest = moveQueue.Dequeue ();
 			}
 		}
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private Vector3 ClampMousePos(Vector2 mousePos){
-		Debug.Log ("Destination " + mousePos.ToString() + " recieved by " + this.ToString());
+		//Debug.Log ("Destination " + mousePos.ToString() + " recieved by " + this.ToString());
 		mousePos.x = Mathf.Clamp (mousePos.x, minX, maxX);
 		mousePos.y = Mathf.Clamp (mousePos.y, minY, maxY);
 		return mousePos;
@@ -78,4 +78,11 @@ public class PlayerMovement : MonoBehaviour {
 		maxY = floor.bounds.max.y;
 	}
 
+	void OnCollisionEnter (Collision other){
+		print (other.gameObject.tag);
+		if (other.gameObject.CompareTag ("Potion")) {
+			print (" I'm here");
+			SendMessageUpwards ("HealTurtle", 1);
+		}
+	}
 }
