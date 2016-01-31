@@ -145,4 +145,9 @@ public class GameManager : MonoBehaviour {
 		renderer.color = Color.black;
 		monsterHealth--;
 	}
+
+    void playSound(int soundNumber)
+    {
+        SendMessage("playSoundAtAudioManager", soundNumber);
+    }
 }
