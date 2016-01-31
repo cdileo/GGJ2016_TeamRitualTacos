@@ -5,19 +5,22 @@ public class positionTracker : MonoBehaviour {
 
     // public vars
     public GameObject partner;
-    public float attackCooldown = 1f;
-    public float moveCooldown = 1f;
-    public float specialCooldown = 1f;
+    public positionTracker partnerTracker;
+    public GameObject boss;
     public float moveSpeed = 5f;
+    public float moveCoolDown = 2f;
     public bool moveEnabled = false;
     public bool debugMe;
-    public float partnerDistanceThreshold = 1f;
+    public float partnerDistanceThreshold = 1.5f;
+    public float nearBossThreshold = 4f;
+    public bool isNearBoss = false;
+    public bool readyToAttack = false;
+    public float lastMove;
+    public Vector2 lastPosition;
 
     // private
     private Transform partnerTransform;
     private bool isMoving = false;
-    private bool canAction = false;
-    private Vector3 myLastPosition;
 
     private const float piBy8 = Mathf.PI / 8;
     
@@ -26,39 +29,44 @@ public class positionTracker : MonoBehaviour {
         if (partner != null)
         {
             partnerTransform = partner.transform;
-            myLastPosition = this.transform.position;
+            partnerTracker = partner.GetComponent<positionTracker>();
+            if (partnerTracker == null)
+                print("You forgot to attach a tracker to one of the chars");
+            lastPosition = transform.position;
         }
 	}
 	
     // State machine for what options are available - 1 per cardinal and half-cardinal dirs
 
 	void Update () {
-        isMoving = (transform.position != myLastPosition);
-        myLastPosition = this.transform.position;
+        isMoving = false;
 
-        if (Input.GetButtonDown("Jump"))
+        if (debugMe && Input.GetButtonDown("Jump"))
         {
-            if (debugMe) print("Partner direction = " + partnerDirection());
-            if (debugMe) print("Partner is within our threshold distance: " + checkPartnerDistance());
+            print("Partner direction = " + partnerDirection());
+            print("Partner is within our threshold distance: " + checkPartnerDistance());
         }
 
-        if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
-        }
-        if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
-            this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
-        }
+        //if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
+        //    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
+        //    lastMove = Time.time;
+        //    isMoving = true;
+        //}
+        //if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
+        //    this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
+        //    lastMove = Time.time;
+        //    isMoving = true;
+        //}
+        //print("Last pos = " + lastPosition + "  Current position = " + (Vector2)transform.position);
+        isMoving = !(lastPosition == (Vector2) transform.position);
+        lastPosition = transform.position;
     }
 
     // dump all that decision logic here
-    private bool canAttack()
+    public bool canAttack()
     {
-        return true;
-    }
-
-    private bool canMove()
-    {
-        return true;
+        readyToAttack = (Time.time - lastMove) > moveCoolDown;
+        return readyToAttack;
     }
 
     // positional cases as follows:
@@ -122,5 +130,27 @@ public class positionTracker : MonoBehaviour {
     private bool checkPartnerDistance()
     {
         return (Vector2.Distance(transform.position, partnerTransform.position) < partnerDistanceThreshold);
+    }
+
+    public int getPartnerDirection()
+    {
+        if (checkPartnerDistance())
+        {
+            return partnerDirection();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public bool checkNearBoss()
+    {
+        return Vector2.Distance(transform.position, boss.transform.position) < nearBossThreshold;
+    }
+
+    public bool getIsMoving()
+    {
+        return isMoving;
     }
 }
