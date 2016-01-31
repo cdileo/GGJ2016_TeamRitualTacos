@@ -27,14 +27,17 @@ public class StoryController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (Input.GetMouseButtonDown(0))
+        {
+            NewMessage();
+        }
+    }
 
 	public void NewMessage(){
 		if (position < story.Length - 1) {
 			textBox.text = story [++position];
 		} else {
-			// TODO: move to next scene
+            //GameObject.Find("LevelManager");
 		}
 	}
 }

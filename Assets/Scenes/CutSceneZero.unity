@@ -259,8 +259,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 16}
-  m_SizeDelta: {x: 755, y: 127.5}
+  m_AnchoredPosition: {x: 24, y: -6}
+  m_SizeDelta: {x: 822, y: 141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798518041
 MonoBehaviour:
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 798518039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14328da11032fa469e18d19c988fe6a, type: 3}
+  m_Script: {fileID: 11500000, guid: 768b2f9f361baf34785342a336e64c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textBox: {fileID: 798518042}
@@ -298,7 +298,7 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
