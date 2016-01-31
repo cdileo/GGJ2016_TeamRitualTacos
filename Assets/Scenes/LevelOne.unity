@@ -208,7 +208,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 128846, guid: 0c054124a673d4948987acc76c1bf9fb, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c054124a673d4948987acc76c1bf9fb, type: 2}
@@ -522,7 +522,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1405734671
+  m_SortingLayerID: -2040472301
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fad7c4c80e3dbb24e84b57c54bc5a788, type: 3}
   m_Color: {r: 1, g: 0.20689654, b: 0, a: 1}
@@ -767,11 +767,11 @@ Prefab:
       objectReference: {fileID: 1346168610}
     - target: {fileID: 133746, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 165860, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
@@ -807,6 +807,7 @@ MonoBehaviour:
   turtle: {fileID: 239078382}
   selector: {fileID: 1143791467}
   floor: {fileID: 1337391009}
+  heartPrefab: {fileID: 192024, guid: 1db6281aa6971ec4294310584d7a0696, type: 2}
   turtleHeartOrigin: {fileID: 964041859}
   mouseHeartOrigin: {fileID: 503876709}
   monsterHeartOrigin: {fileID: 688022044}
@@ -896,7 +897,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 128846, guid: 0c054124a673d4948987acc76c1bf9fb, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c054124a673d4948987acc76c1bf9fb, type: 2}
@@ -1069,11 +1070,11 @@ Prefab:
       objectReference: {fileID: 1346168610}
     - target: {fileID: 133746, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 165860, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9660721689bf37147bbb53f531d764c5, type: 2}
