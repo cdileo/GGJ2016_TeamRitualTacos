@@ -39,10 +39,16 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.D)) {
-			DamageToTurtle (2);
+			DamageToTurtle (1);
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
 			HealTurtle (1);
+		}
+		if (Input.GetKeyDown (KeyCode.C)) {
+			DamageToMouse (1);
+		}
+		if (Input.GetKeyDown (KeyCode.B)) {
+			HealMouse (1);
 		}
 
 		if (Input.GetKeyDown ("1") && selected != mouse) {
@@ -113,7 +119,7 @@ public class GameManager : MonoBehaviour {
 			heartPos.x += i;
 			mouseHearts [i] = Instantiate (mouseHeartOrigin, heartPos, Quaternion.identity) as GameObject;
 		}
-		monsterHealth = monsterMaxHealth;	
+		mouseHealth = monsterMaxHealth;	
 
 		monsterHearts = new GameObject[monsterMaxHealth];
 		for (int i = 0; i < monsterMaxHealth; i++) {
@@ -138,6 +144,22 @@ public class GameManager : MonoBehaviour {
 		renderer.color = Color.black;
 		turtleHealth--;
 		print (turtleHealth);
+	}
+
+	void HealMouse(int heal){
+		if (mouseHealth < mouseMaxHealth) {
+			SpriteRenderer renderer = mouseHearts [mouseHealth].GetComponent<SpriteRenderer> (); 
+			renderer.color = Color.blue;
+			mouseHealth++;
+			print (mouseHealth);
+		}
+	}
+
+	void DamageToMouse(int damage){
+		SpriteRenderer renderer = mouseHearts[mouseHealth-1].GetComponent<SpriteRenderer> (); 
+		renderer.color = Color.black;
+		mouseHealth--;
+		print (mouseHealth);
 	}
 
 	void DamageToBoss(int damage) {

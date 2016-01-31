@@ -36,7 +36,7 @@ public class attackScript : MonoBehaviour {
     void Update()
     {
         isMoving = pt.getIsMoving();
-        nearBoss = pt.isNearBoss();
+        nearBoss = pt.isNearBoss;
         if (!isMoving)
         {
             if (canSpecial)
