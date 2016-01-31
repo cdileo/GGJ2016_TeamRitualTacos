@@ -48,10 +48,10 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.D)) {
-			DamageToBoss (1);
+			DamageToBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
-			HealBoss (1);
+			HealBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.C)) {
 			DamageToMouse (1);
@@ -162,6 +162,11 @@ public class GameManager : MonoBehaviour {
 		print ("You win!");
 	}
 
+	public void Dead(){
+		// TODO
+		print ("Dead!");
+	}
+
 	public class HealthBar {
 
 		private Color colour;
@@ -220,7 +225,6 @@ public class GameManager : MonoBehaviour {
 					SpriteRenderer heartRenderer = heartContainer [health].GetComponent<SpriteRenderer> (); 
 					heartRenderer.color = colour;
 					health++;
-					print (health);
 				}
 			}
 		
