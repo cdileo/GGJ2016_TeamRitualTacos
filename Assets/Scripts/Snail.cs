@@ -26,6 +26,18 @@ public class Snail : MonoBehaviour {
                 EyeButt(tPos, mPos);
                 break;
 
+            case 3:
+                EyeButt(tPos, mPos);
+                break;
+
+            case 4:
+                Hide();
+                break;
+
+            case 5:
+                EyeButt(tPos, mPos);
+                break;
+
             default:
                 EyeButt(tPos, mPos);
                 break;
@@ -61,7 +73,7 @@ public class Snail : MonoBehaviour {
 
     public void EyeButt(Vector3 tPos, Vector3 mPos)
     {
-        SendMessageUpwards("SnailDefense", 0);
+        SendMessageUpwards("BossDefense", 0);
         //query characters to see if either get hit
         //if so, get 1 damage
         if (Vector2.Distance(tPos, transform.position) < nearThreshold)
@@ -74,7 +86,7 @@ public class Snail : MonoBehaviour {
 
     public void Hide()
     {
-        SendMessageUpwards("SnailDefense", 2);
+        SendMessageUpwards("BossDefense", 2);
         //animate?
         //sound effect?
 

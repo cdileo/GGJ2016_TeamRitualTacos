@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour {
 	private GameObject[] mouseHearts;
 	private GameObject[] monsterHearts;
 
+    private int turtleDefense = 0;
+    private int mouseDefense = 0;
+    private int bossDefense = 0;
+
+
 	private GameObject selected;
 
 	// Use this for initialization
@@ -147,4 +152,9 @@ public class GameManager : MonoBehaviour {
 		renderer.color = Color.black;
 		monsterHealth--;
 	}
+
+    void BossDefense(int i)
+    {
+        bossDefense = i;
+    }
 }
