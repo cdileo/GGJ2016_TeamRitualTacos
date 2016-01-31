@@ -213,6 +213,11 @@ public class GameManager : MonoBehaviour {
 			}
 		
 		}
-	
 	}
+	
+
+    void playSound(int soundNumber)
+    {
+        SendMessage("playSoundAtAudioManager", soundNumber);
+    }
 }

@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private Vector3 ClampMousePos(Vector2 mousePos){
-		Debug.Log ("Destination " + mousePos.ToString() + " recieved by " + this.ToString());
+		//Debug.Log ("Destination " + mousePos.ToString() + " recieved by " + this.ToString());
 		mousePos.x = Mathf.Clamp (mousePos.x, minX, maxX);
 		mousePos.y = Mathf.Clamp (mousePos.y, minY, maxY);
 		return mousePos;
