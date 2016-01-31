@@ -147,7 +147,7 @@ public class attackScript : MonoBehaviour {
     private void startBomb()
     {
         if (nearBoss)
-            SendMessageUpwards("DamageToBoss", 1);
+            SendMessageUpwards("DamageToBoss", 3);
         print("State 0: bomb");
         resetAbilities();
     }
@@ -160,7 +160,18 @@ public class attackScript : MonoBehaviour {
         activeIndicator.transform.parent = this.transform;
         Destroy(activeIndicator, shieldLifetime);
         resetAbilities();
+        SendMessageUpwards("TurtleDefense", 2);
+        SendMessageUpwards("MouseDefense", 2);
+        Invoke("EndDefense", shieldLifetime);
+
+
 		print ("Shield starting");
+    }
+
+    private void endDefense()
+    {
+        SendMessageUpwards("TurtleDefense", 0);
+        SendMessageUpwards("MouseDefense", 0);
     }
 
     private void resetAbilities()

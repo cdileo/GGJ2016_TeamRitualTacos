@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour {
 	public GameObject monsterHeartOrigin;
 
 	private HealthBar monsterHeartBar;
+	private HealthBar mouseHeartBar;
+	private HealthBar turtleHeartBar;
 
 	public int turtleMaxHealth;
 	public int mouseMaxHealth;
-	public int monsterMaxHealth;
+    public int monsterMaxHealth; //set per level
 
 	private int turtleHealth;
 	private int mouseHealth;
@@ -25,6 +27,11 @@ public class GameManager : MonoBehaviour {
 	private GameObject[] turtleHearts;
 	private GameObject[] mouseHearts;
 	private GameObject[] monsterHearts;
+
+    private int turtleDefense = 0;
+    private int mouseDefense = 0;
+    private int bossDefense = 0;
+
 
 	private GameObject selected;
 
@@ -41,10 +48,10 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.D)) {
-			DamageToBoss (1);
+			DamageToBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
-			HealBoss (1);
+			HealBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.C)) {
 			DamageToMouse (1);
@@ -109,61 +116,54 @@ public class GameManager : MonoBehaviour {
 
 
 	void HealTurtle(int heal){
-		if (turtleHealth < turtleMaxHealth) {
-			SpriteRenderer renderer = turtleHearts [turtleHealth].GetComponent<SpriteRenderer> (); 
-			renderer.color = Color.green;
-			turtleHealth++;
-			print (turtleHealth);
-		}
+		turtleHeartBar.Heal (heal);
 	}
 
 	void DamageToTurtle(int damage){
-		SpriteRenderer renderer = turtleHearts[turtleHealth-1].GetComponent<SpriteRenderer> (); 
-		renderer.color = Color.black;
-		turtleHealth--;
-		print (turtleHealth);
-	}
+        if (damage - turtleDefense > 0)
+            turtleHeartBar.Damage(turtleDefense - damage);
+    }
 
 	void HealMouse(int heal){
-		if (mouseHealth < mouseMaxHealth) {
-			SpriteRenderer renderer = mouseHearts [mouseHealth].GetComponent<SpriteRenderer> (); 
-			renderer.color = Color.blue;
-			mouseHealth++;
-			print (mouseHealth);
-		}
+		mouseHeartBar.Heal (heal);
 	}
 
 	void DamageToMouse(int damage){
-		SpriteRenderer renderer = mouseHearts[mouseHealth-1].GetComponent<SpriteRenderer> (); 
-		renderer.color = Color.black;
-		mouseHealth--;
-		print (mouseHealth);
+        if(damage - mouseDefense > 0)
+		    mouseHeartBar.Damage (mouseDefense - damage);
 	}
 
 	void DamageToBoss(int damage) {
-		monsterHeartBar.Damage (damage);
-	}
+        if (damage - bossDefense > 0)
+            monsterHeartBar.Damage(bossDefense - damage);
+    }
 
-	void HealBoss (int heal){
+
+    void BossDefense(int i)
+    {
+        bossDefense = i;
+    }
+
+    void TurtleDefense(int i)
+    {
+        turtleDefense = i;
+    }
+
+    void MouseDefense(int i)
+    {
+        mouseDefense = i;
+    }
+
+    void HealBoss (int heal){
 		monsterHeartBar.Heal (heal);
 	}
 
 	private void SetHearts(){
-		turtleHearts = new GameObject[turtleMaxHealth];
-		for (int i = 0; i < turtleMaxHealth; i++) {
-			Vector3 heartPos = turtleHeartOrigin.transform.position;
-			heartPos.x += i;
-			turtleHearts [i] = Instantiate (turtleHeartOrigin, heartPos, Quaternion.identity) as GameObject;
-		}
-		turtleHealth = turtleMaxHealth;	
+		turtleHeartBar = new HealthBar (Color.green, turtleMaxHealth, turtleHeartOrigin.transform.position, this);
+		turtleHeartOrigin.SetActive (false);
 
-		mouseHearts = new GameObject[mouseMaxHealth];
-		for (int i = 0; i < mouseMaxHealth; i++) {
-			Vector3 heartPos = mouseHeartOrigin.transform.position;
-			heartPos.x += i;
-			mouseHearts [i] = Instantiate (mouseHeartOrigin, heartPos, Quaternion.identity) as GameObject;
-		}
-		mouseHealth = monsterMaxHealth;	
+		mouseHeartBar = new HealthBar (Color.blue, mouseMaxHealth, mouseHeartOrigin.transform.position, this);
+		mouseHeartOrigin.SetActive (false);
 
 		monsterHeartBar = new HealthBar (Color.red, monsterMaxHealth, monsterHeartOrigin.transform.position, this);
 		monsterHeartOrigin.SetActive (false);
@@ -173,6 +173,14 @@ public class GameManager : MonoBehaviour {
 		// TODO
 		print ("You win!");
 	}
+
+	public void Dead(){
+		// TODO
+		print ("Dead!");
+	}
+
+
+
 
 	public class HealthBar {
 
@@ -232,13 +240,12 @@ public class GameManager : MonoBehaviour {
 					SpriteRenderer heartRenderer = heartContainer [health].GetComponent<SpriteRenderer> (); 
 					heartRenderer.color = colour;
 					health++;
-					print (health);
 				}
 			}
 		
 		}
-	
 	}
+	
 
     void playSound(int soundNumber)
     {
