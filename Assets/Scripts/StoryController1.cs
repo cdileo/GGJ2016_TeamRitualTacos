@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StoryController1 : MonoBehaviour
 {
-
+    GameObject levelMan;
 
     public Text textBox;
     private string[] story = { "Turtle: \"Mouse! Mouse! Star Platypus has been kidnapped by the Octpus King! We have to rescue them!\"", 
@@ -23,7 +23,10 @@ public class StoryController1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            NewMessage();
+        }
     }
 
     public void NewMessage()
@@ -33,7 +36,8 @@ public class StoryController1 : MonoBehaviour
             textBox.text = story[++position];
         }
         else {
-            // TODO: move to next scene
+            levelMan = GameObject.Find("LevelManager");
+            (levelMan.GetComponent<LevelManagerScript>()).nextLevel();
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StoryController2 : MonoBehaviour
 {
-
+    GameObject levelMan;
 
     public Text textBox;
     private string[] story = { "Turtle: \"We did it Mouse! I knew we could do it if we worked together! Next time we get close, you should go first, and we'll do a combined attack.\"",
@@ -24,7 +24,10 @@ public class StoryController2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            NewMessage();
+        }
     }
 
     public void NewMessage()
@@ -34,7 +37,8 @@ public class StoryController2 : MonoBehaviour
             textBox.text = story[++position];
         }
         else {
-            // TODO: move to next scene
+            levelMan = GameObject.Find("LevelManager");
+            (levelMan.GetComponent<LevelManagerScript>()).nextLevel();
         }
     }
 }
