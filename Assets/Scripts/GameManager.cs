@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 
 	public int turtleMaxHealth;
 	public int mouseMaxHealth;
-	public int monsterMaxHealth = 10;//for snail for testing
+    public int monsterMaxHealth; //set per level
 
 	private int turtleHealth;
 	private int mouseHealth;
