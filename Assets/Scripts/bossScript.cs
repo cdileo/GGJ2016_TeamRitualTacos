@@ -9,6 +9,7 @@ public class bossScript : MonoBehaviour {
     public Crab crab1;
     public Octopus octo1;
     public float nearThreshold = 3f;
+    public Animator myAnimator;
 
     //need to be set in scene
     public int level;
@@ -22,8 +23,7 @@ public class bossScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         stage = 0;
-
-        InvokeRepeating("logic", 0, attackInterval);
+        InvokeRepeating("logic", 2f, attackInterval);
 	}
 	
 	// Update is called once per frame
@@ -40,7 +40,8 @@ public class bossScript : MonoBehaviour {
     private void logic()
     {
         playerNear = checkNear();
-
+        print(playerNear);
+        level = 2; //TODO: come back to me
         switch (level)
         {
             case 1: //snail
@@ -53,8 +54,10 @@ public class bossScript : MonoBehaviour {
             case 2: //crab
                 if (playerNear)
                     crab1.NearMechanics(stage, turtle.transform.position, mouse.transform.position);
+                
                 else
                     crab1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
+                myAnimator.SetTrigger("Attack");
                 break;
 
             case 3: //octopus
@@ -66,7 +69,7 @@ public class bossScript : MonoBehaviour {
         }
 
         stage = (stage + 1) % 6;
-
+        print("Leaving logic");
     }
 }
 
