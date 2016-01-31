@@ -16,6 +16,7 @@ public class positionTracker : MonoBehaviour {
     public bool readyToAttack = false;
 
     public float lastMove;
+    public Vector2 lastPosition;
 
     // private
     private Transform partnerTransform;
@@ -31,6 +32,7 @@ public class positionTracker : MonoBehaviour {
             partnerTracker = partner.GetComponent<positionTracker>();
             if (partnerTracker == null)
                 print("You forgot to attach a tracker to one of the chars");
+            lastPosition = transform.position;
         }
 	}
 	
@@ -45,16 +47,20 @@ public class positionTracker : MonoBehaviour {
             print("Partner is within our threshold distance: " + checkPartnerDistance());
         }
 
-        if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
-            lastMove = Time.time;
-            isMoving = true;
-        }
-        if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
-            this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
-            lastMove = Time.time;
-            isMoving = true;
-        }
+        //if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
+        //    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), this.transform.position.z);
+        //    lastMove = Time.time;
+        //    isMoving = true;
+        //}
+        //if (Input.GetAxis("Horizontal") != 0 && moveEnabled) {
+        //    this.transform.position = new Vector3(this.transform.position.x + moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), this.transform.position.y, this.transform.position.z);
+        //    lastMove = Time.time;
+        //    isMoving = true;
+        //}
+        //print("Last pos = " + lastPosition + "  Current position = " + (Vector2)transform.position);
+        isMoving = !(lastPosition == (Vector2) transform.position);
+        //print(isMoving);
+        lastPosition = transform.position;
     }
 
     // dump all that decision logic here
@@ -62,11 +68,6 @@ public class positionTracker : MonoBehaviour {
     {
         readyToAttack = (Time.time - lastMove) > moveCoolDown;
         return readyToAttack;
-    }
-
-    public bool canMove()
-    {
-        return true;
     }
 
     // positional cases as follows:
