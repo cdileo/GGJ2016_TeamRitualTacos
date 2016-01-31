@@ -64,7 +64,7 @@ GameObject:
   - 4: {fileID: 482578}
   - 114: {fileID: 11440940}
   m_Layer: 0
-  m_Name: GameManager 1
+  m_Name: GameManagerComplete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turtle: {fileID: 124364}
-  mouse: {fileID: 153764}
+  mouse: {fileID: 0}
   snail1: {fileID: 0}
   crab1: {fileID: 0}
   octo1: {fileID: 0}
