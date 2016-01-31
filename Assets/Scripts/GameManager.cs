@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour {
 				if (health > 0) {
 					SpriteRenderer renderer = heartContainer [health - 1].GetComponent<SpriteRenderer> (); 
 					renderer.color = Color.black;
-					health--;
+					health = health - damage;
 					if (health <= 0)
 						gameManager.SendMessage ("Dead");
 				} else 
