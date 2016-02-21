@@ -3,15 +3,12 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public GameObject mouse;
-	public GameObject turtle;
+	public GameObject mouseNavigator;
+	public GameObject turtleNavigator;
 	public GameObject selector;
 	public GameObject floor;
 	public GameObject heartPrefab;
-
-	public GameObject turtleHeartOrigin;
-	public GameObject mouseHeartOrigin;
-	public GameObject monsterHeartOrigin;
+	public GameObject heartContainer;
 
 	private HealthBar monsterHeartBar;
 	private HealthBar mouseHeartBar;
@@ -33,34 +30,35 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		Renderer floorRend = floor.GetComponent<Renderer> ();
-		mouse.SendMessage ("PassFloor", floorRend);
-		turtle.SendMessage ("PassFloor", floorRend);
+		mouseNavigator.SendMessage ("PassFloor", floorRend);
+		turtleNavigator.SendMessage ("PassFloor", floorRend);
 
 		SetHearts ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.D)) {
-			DamageToBoss (1);
+			DamageToBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
-			HealBoss (1);
+			HealBoss (2);
 		}
 		if (Input.GetKeyDown (KeyCode.C)) {
-			DamageToMouse (1);
+			DamageToMouse (2);
 		}
 		if (Input.GetKeyDown (KeyCode.B)) {
-			HealMouse (1);
+			HealMouse (2);
 		}
 
-		if (Input.GetKeyDown ("1") && selected != mouse) {
+		if (Input.GetKeyDown ("1") && selected != mouseNavigator) {
 			Debug.logger.Log ("1 pressed");
-			Select (mouse);
-		} else if (Input.GetKeyDown ("2") && selected != turtle) {
+			Select (mouseNavigator);
+		} else if (Input.GetKeyDown ("2") && selected != turtleNavigator) {
 			Debug.logger.Log ("2 pressed");
-			Select (turtle);
+			Select (turtleNavigator);
 		}
 
 		if (Input.GetMouseButtonDown (0)) {
@@ -86,8 +84,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void LeftMouseStuff(){
-		//Debug.logger.Log ("Mouse 0 pressed at " + Input.mousePosition.ToString());
-
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
@@ -95,15 +91,16 @@ public class GameManager : MonoBehaviour {
 		if (hit.collider != null) {
 			GameObject hitObject = hit.collider.gameObject;
 			Debug.Log ("Target Position: " + hitObject.transform.position);
+			Debug.Log ("Target hit: " + hitObject.name);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
-			//else if (hitObject.CompareTag ("Floor") & selected != null)
-				//selected.SendMessage("AddDest", mousePos);
+			else if (hitObject.CompareTag ("Floor") & selected != null)
+				selected.SendMessage("AddDest", mousePos);
 
-		// Clicked on Nothing
-		//} else if (selected != null) {
-		//	selected.SendMessage("AddDest", mousePos);
-
+		 //Clicked on Nothing
+		} else if (selected != null) {
+			Debug.Log("Mouse clicked on nothing at: " + mousePos.x + ", " + mousePos.y);
+			selected.SendMessage("AddDest", mousePos);
 		}
 	}
 
@@ -153,18 +150,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void SetHearts(){
-		turtleHeartBar = new HealthBar (Color.green, turtleMaxHealth, turtleHeartOrigin.transform.position, this);
-		turtleHeartOrigin.SetActive (false);
+		float heartX = heartContainer.transform.position.x;
+		float heartY = heartContainer.transform.position.y;
 
-		mouseHeartBar = new HealthBar (Color.blue, mouseMaxHealth, mouseHeartOrigin.transform.position, this);
-		mouseHeartOrigin.SetActive (false);
-
-		monsterHeartBar = new HealthBar (Color.red, monsterMaxHealth, monsterHeartOrigin.transform.position, this);
-		monsterHeartOrigin.SetActive (false);
+		turtleHeartBar = new HealthBar (Color.green, turtleMaxHealth, new Vector2(heartX, heartY), this);
+		mouseHeartBar = new HealthBar (Color.blue, mouseMaxHealth, new Vector2(heartX + turtleMaxHealth, heartY), this);
+		monsterHeartBar = new HealthBar (Color.red, monsterMaxHealth, new Vector2(heartX, heartY - 1), this);
 	}
 
 	public void Win(){
 		print ("You win!");
+		SpriteRenderer cookedCrab = GameObject.Find ("Boss").GetComponent<SpriteRenderer> (); // Bad form but fun for now
+		cookedCrab.color = Color.red;
+
 		levelMan = GameObject.Find("LevelManager");
 		(levelMan.GetComponent<LevelManagerScript>()).nextLevel();
 	}
@@ -229,7 +227,7 @@ public class GameManager : MonoBehaviour {
 				if (health > 0) {
 					SpriteRenderer renderer = heartContainer [health - 1].GetComponent<SpriteRenderer> (); 
 					renderer.color = Color.black;
-					health = health - damage;
+					health--;
 					if (health <= 0)
 						gameManager.SendMessage ("Dead");
 				} else 

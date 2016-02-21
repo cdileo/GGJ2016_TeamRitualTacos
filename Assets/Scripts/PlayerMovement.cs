@@ -7,10 +7,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject destToken;
 	public int speed;
 
-
-
-	private Vector3 newDest;
-	private Vector3 noDest = new Vector3(9999, 9999, 0);
+	private Vector2 newDest;
+	private Vector2 noDest = new Vector2(9999, 9999);
 	private Queue<Vector3> moveQueue;
 	private Renderer floorRend;
 
@@ -24,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Awake () {
 		moveQueue = new Queue<Vector3> ();
 		newDest = noDest;
+		speed = speed == 0 ? 5 : speed;
 	}
 	
 	// Update is called once per frame
@@ -54,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
 	void AddDest(Vector2 mousePos){
 		mousePos = ClampMousePos (mousePos);
 		moveQueue.Enqueue (mousePos);
-		destToken.transform.position =  new Vector3(mousePos.x, mousePos.y, 1);
+		destToken.transform.position =  new Vector2(mousePos.x, mousePos.y);
 	}
 
 	void NewDest(Vector2 mousePos){
@@ -81,7 +80,7 @@ public class PlayerMovement : MonoBehaviour {
 	void OnCollisionEnter (Collision other){
 		print (other.gameObject.tag);
 		if (other.gameObject.CompareTag ("Potion")) {
-			print (" I'm here");
+			print ("Potion: I'm here");
 			SendMessageUpwards ("HealTurtle", 1);
 		}
 	}

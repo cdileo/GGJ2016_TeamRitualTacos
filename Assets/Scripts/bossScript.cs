@@ -40,7 +40,8 @@ public class bossScript : MonoBehaviour {
     private void logic()
     {
         playerNear = checkNear();
-        print(playerNear);
+		if (playerNear)
+			print("Player near");
         level = 2; //TODO: come back to me
         switch (level)
         {
@@ -57,7 +58,7 @@ public class bossScript : MonoBehaviour {
                 
                 else
                     crab1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
-                myAnimator.SetTrigger("Attack");
+                //myAnimator.SetTrigger("Attack"); // TODO Sorry just for now
                 break;
 
             case 3: //octopus
