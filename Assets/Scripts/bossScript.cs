@@ -58,7 +58,7 @@ public class bossScript : MonoBehaviour {
                 
                 else
                     crab1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
-                //myAnimator.SetTrigger("Attack"); // TODO Sorry just for now
+                myAnimator.SetTrigger("Attack");
                 break;
 
             case 3: //octopus

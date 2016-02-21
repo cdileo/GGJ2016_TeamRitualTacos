@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -8,8 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 	public int speed;
 
 	private Vector2 newDest;
-	private Vector2 noDest = new Vector2(9999, 9999);
-	private Queue<Vector3> moveQueue;
+    private Vector2 noDest = new Vector2(999, 999);
+	private Queue<Vector2> moveQueue;
 	private Renderer floorRend;
 
 	private float minX;
@@ -20,51 +21,52 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		moveQueue = new Queue<Vector3> ();
-		newDest = noDest;
+		moveQueue = new Queue<Vector2> ();
 		speed = speed == 0 ? 5 : speed;
+        newDest = noDest;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+
 		// Get new dest if needed
-		if (newDest == noDest) {
+		if (VectorsEqual(newDest, noDest)) {
 			if (moveQueue != null && moveQueue.Count > 0) {
 				newDest = moveQueue.Dequeue ();
 			}
-		}
-			
-		if (newDest != noDest) {
-			transform.position = Vector2.MoveTowards (new Vector2 (transform.position.x, transform.position.y), newDest, 3 * Time.deltaTime);	
-			if (transform.position.x == newDest.x & transform.position.y == newDest.y) {
-				newDest = noDest;
-				if (moveQueue.Count == 0)
-					destToken.transform.position = noDest;
+		} else  {
+			transform.position = Vector2.MoveTowards (new Vector2 (transform.position.x, transform.position.y), newDest, 3 * Time.deltaTime);
+            if (VectorsEqual(transform.position, newDest)) {
+                newDest = noDest;
+                if (moveQueue.Count == 0)
+                    destToken.transform.position = noDest;
 			}
 			
 		}	
 	}
 
-	private void MovePlayer(Vector3 newDest) {
+    private bool VectorsEqual(Vector2 target, Vector2 comparison)
+    {
+        // Bug fix: Don't use '=' operator for float. Too finiky, use Mathf.Approx instead.
+        return Mathf.Approximately(target.x, comparison.x) && Mathf.Approximately(target.y, comparison.y);
+    }
 
-	}
-
-	void AddDest(Vector2 mousePos){
+    void AddDest(Vector2 mousePos){
 		mousePos = ClampMousePos (mousePos);
 		moveQueue.Enqueue (mousePos);
-		destToken.transform.position =  new Vector2(mousePos.x, mousePos.y);
+        destToken.transform.position = mousePos;
+
 	}
 
 	void NewDest(Vector2 mousePos){
 		mousePos = ClampMousePos (mousePos);
-		moveQueue = new Queue<Vector3> ();
+		moveQueue = new Queue<Vector2> ();
 		newDest = mousePos;
 		destToken.transform.position =  newDest;
 	}
 
 	private Vector3 ClampMousePos(Vector2 mousePos){
-		//Debug.Log ("Destination " + mousePos.ToString() + " recieved by " + this.ToString());
 		mousePos.x = Mathf.Clamp (mousePos.x, minX, maxX);
 		mousePos.y = Mathf.Clamp (mousePos.y, minY, maxY);
 		return mousePos;

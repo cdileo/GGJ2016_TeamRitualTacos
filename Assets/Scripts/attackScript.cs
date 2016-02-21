@@ -61,9 +61,9 @@ public class attackScript : MonoBehaviour {
 
     private void attack()
     {
-        //print("Attacking...."); // TODO Please be quit for a second
+        print("Attacking....");
         SendMessageUpwards("playSound", 1);
-        //myAnimator.SetTrigger("Attack"); //TODO Sorry, just for now
+        myAnimator.SetTrigger("Attack");
         hasMovedSinceLast = false;
         canSpecial = false;
     }

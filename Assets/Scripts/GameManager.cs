@@ -54,10 +54,8 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown ("1") && selected != mouseNavigator) {
-			Debug.logger.Log ("1 pressed");
 			Select (mouseNavigator);
 		} else if (Input.GetKeyDown ("2") && selected != turtleNavigator) {
-			Debug.logger.Log ("2 pressed");
 			Select (turtleNavigator);
 		}
 
@@ -71,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
 	private void Select(GameObject chosen){
 		selected = chosen;
-		Debug.logger.Log (selected.ToString() + " selected");
+		//Debug.logger.Log (selected.ToString() + " selected");
 		selector.transform.position = selected.transform.position;
 		selector.transform.SetParent(selected.transform);
 	}
@@ -90,8 +88,7 @@ public class GameManager : MonoBehaviour {
 		// Clicked on object
 		if (hit.collider != null) {
 			GameObject hitObject = hit.collider.gameObject;
-			Debug.Log ("Target Position: " + hitObject.transform.position);
-			Debug.Log ("Target hit: " + hitObject.name);
+			//Debug.Log ("Target hit: " + hitObject.name + " at " + mousePos);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
 			else if (hitObject.CompareTag ("Floor") & selected != null)
@@ -183,10 +180,16 @@ public class GameManager : MonoBehaviour {
 
 
 
-
+    // Contains everything you need to make a healthbar
+    // Use GetHealth() to see how your creature is doing
 	public class HealthBar {
 
-		private Color colour;
+        public Color getColour() { return colour; }
+        public Vector3 getOriginPos() { return originPos; }
+        public int getMaxHealth() { return maxHealth; }
+        public int getHealth() { return health; }
+
+        private Color colour;
 		private int maxHealth;
 		private Vector3 originPos;
 
@@ -195,11 +198,6 @@ public class GameManager : MonoBehaviour {
 		private GameObject heart;
 
 		private GameManager gameManager;
-
-		public Color getColour() { return colour; }
-		public Vector3 getOriginPos() { return originPos; }
-		public int getMaxHealth() { return maxHealth; }
-		public int getHealth() { return health; }
 
 		public HealthBar(Color colourSet, int maxHealthSet, Vector3 originPosSet, GameManager gameManagerSet){
 			colour = colourSet;
