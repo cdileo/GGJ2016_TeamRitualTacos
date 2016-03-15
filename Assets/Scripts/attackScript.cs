@@ -6,21 +6,28 @@ public class attackScript : MonoBehaviour {
 
     public int positionState;
     public positionTracker pt;
-    public float attackCoolDown = 1f;
+    
+	public float attackCoolDown = 1f;
     public float moveCoolDown = 7f;
-    public float specialChargeTime = 1f;
-    public bool canAttack = false;
+    
+	public float specialChargeTime = 1f;
+    
+	public bool canAttack = false;
     public bool canMove = false;
     public bool canSpecial = false;
-    public bool isSpecialing = false;
+    
+	public bool isSpecialing = false;
     public bool isAttacking = false;
     public bool isMoving = true;
     public bool hasMovedSinceLast = true;
-    public GameObject indicatorPrefab;
+    
+	public GameObject indicatorPrefab;
     public GameObject indicatorHolder;
-    public float sheildChargeTime = .5f;
+    
+	public float sheildChargeTime = .5f;
     public float shieldLifetime = 2;
-    public Animator myAnimator;
+    
+	private Animator animator;
 
     private GameObject activeIndicator;
     private float lastAttack;
@@ -28,11 +35,12 @@ public class attackScript : MonoBehaviour {
     private float lastSpecial;
     private bool nearBoss;
 
-
     void Start () {
         lastAttack = Time.time;
         lastMove = Time.time;
         lastSpecial = Time.time;
+
+		animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -61,9 +69,9 @@ public class attackScript : MonoBehaviour {
 
     private void attack()
     {
-        print("Attacking....");
+        //print("Attacking....");
         SendMessageUpwards("playSound", 1);
-        myAnimator.SetTrigger("Attack");
+		animator.SetTrigger("Attack");
         hasMovedSinceLast = false;
         canSpecial = false;
     }

@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject destToken;
 	public int speed;
 
+	// Movement
 	private Vector2 newDest;
     private Vector2 noDest = new Vector2(999, 999);
 	private Queue<Vector2> moveQueue;
 	private Renderer floorRend;
 
+	// Values sent from Floor. Will clamp players movement.
 	private float minX;
 	private float maxX;
 	private float minY;
@@ -29,15 +31,16 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
 		// Get new dest if needed
 		if (VectorsEqual(newDest, noDest)) {
 			if (moveQueue != null && moveQueue.Count > 0) {
 				newDest = moveQueue.Dequeue ();
 			}
+
 		} else  {
 			transform.position = Vector2.MoveTowards (new Vector2 (transform.position.x, transform.position.y), newDest, 3 * Time.deltaTime);
-            if (VectorsEqual(transform.position, newDest)) {
+            
+			if (VectorsEqual(transform.position, newDest)) {
                 newDest = noDest;
                 if (moveQueue.Count == 0)
                     destToken.transform.position = noDest;

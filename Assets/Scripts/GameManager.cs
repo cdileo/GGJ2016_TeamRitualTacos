@@ -88,15 +88,15 @@ public class GameManager : MonoBehaviour {
 		// Clicked on object
 		if (hit.collider != null) {
 			GameObject hitObject = hit.collider.gameObject;
-			//Debug.Log ("Target hit: " + hitObject.name + " at " + mousePos);
 			if (hitObject.CompareTag ("Player"))
 				Select (hitObject);
-			else if (hitObject.CompareTag ("Floor") & selected != null)
-				selected.SendMessage("AddDest", mousePos);
+			else {
+				selected.SendMessage ("AddDest", mousePos);
+				Debug.Log ("Target hit: " + hitObject.name + " at " + mousePos);
+			}
 
 		 //Clicked on Nothing
 		} else if (selected != null) {
-			Debug.Log("Mouse clicked on nothing at: " + mousePos.x + ", " + mousePos.y);
 			selected.SendMessage("AddDest", mousePos);
 		}
 	}
@@ -184,10 +184,11 @@ public class GameManager : MonoBehaviour {
     // Use GetHealth() to see how your creature is doing
 	public class HealthBar {
 
+		public int getHealth() { return health; }
+
         public Color getColour() { return colour; }
         public Vector3 getOriginPos() { return originPos; }
         public int getMaxHealth() { return maxHealth; }
-        public int getHealth() { return health; }
 
         private Color colour;
 		private int maxHealth;

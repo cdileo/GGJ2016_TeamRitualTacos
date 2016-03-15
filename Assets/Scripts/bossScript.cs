@@ -9,7 +9,7 @@ public class bossScript : MonoBehaviour {
     public Crab crab1;
     public Octopus octo1;
     public float nearThreshold = 3f;
-    public Animator myAnimator;
+	private Animator animator;
 
     //need to be set in scene
     public int level;
@@ -24,6 +24,8 @@ public class bossScript : MonoBehaviour {
     void Start () {
         stage = 0;
         InvokeRepeating("logic", 2f, attackInterval);
+
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -58,7 +60,7 @@ public class bossScript : MonoBehaviour {
                 
                 else
                     crab1.FarMechanics(stage, turtle.transform.position, mouse.transform.position);
-                myAnimator.SetTrigger("Attack");
+                animator.SetTrigger("Attack");
                 break;
 
             case 3: //octopus
