@@ -18,6 +18,16 @@ public class positionTracker : MonoBehaviour {
     public float lastMove;
     public Vector2 lastPosition;
 
+	// static = accessable from other scripts
+	/** RETURN 0 */ public static int POSEAST = 0;
+	/** RETURN 1 */ public static int POSNORTHEAST = 1;
+	/** RETURN 2 */ public static int POSNORTH = 2;
+	/** RETURN 3 */ public static int POSNORTHWEST = 3;
+	/** RETURN 4 */ public static int POSWEST = 4;
+	/** RETURN 5 */ public static int POSSOUTHWEST = 5;
+	/** RETURN 6 */ public static int POSSOUTH = 6;
+	/** RETURN 7 */ public static int POSSOUTHEAST = 7;
+
     // private
     private Transform partnerTransform;
     private bool isMoving = false;
@@ -44,7 +54,7 @@ public class positionTracker : MonoBehaviour {
         if (debugMe && Input.GetButtonDown("Jump"))
         {
             print("Partner direction = " + partnerDirection());
-            print("Partner is within our threshold distance: " + checkPartnerDistance());
+            print("Partner is within our threshold distance: " + checkNearPartner());
         }
 
         //if (Input.GetAxis("Vertical") != 0 && moveEnabled) {
@@ -127,14 +137,14 @@ public class positionTracker : MonoBehaviour {
         return ret;
     }
 
-    private bool checkPartnerDistance()
+    private bool checkNearPartner()
     {
         return (Vector2.Distance(transform.position, partnerTransform.position) < partnerDistanceThreshold);
     }
 
     public int getPartnerDirection()
     {
-        if (checkPartnerDistance())
+        if (checkNearPartner())
         {
             return partnerDirection();
         }

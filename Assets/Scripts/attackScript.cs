@@ -84,35 +84,35 @@ public class attackScript : MonoBehaviour {
             return;
         }
         // what's a switch statement?
-        if(state == 0)
+		if(state == positionTracker.POSEAST)
         {
             startBomb();
         }
-        else if (state == 1)
+		else if (state == positionTracker.POSNORTHEAST)
         {
             doNothingAtAll();
         }
-        else if (state == 2)
+		else if (state == positionTracker.POSNORTH)
         {
             startNearAttack1();
         }
-        else if (state == 3)
+		else if (state == positionTracker.POSNORTHWEST)
         {
             startFarAttack1();
         }
-        else if (state == 4)
+		else if (state == positionTracker.POSWEST)
         {
             startDefence();
         }
-        else if (state == 5)
+		else if (state == positionTracker.POSSOUTHWEST)
         {
             startFarAttack2();
         }
-        else if (state == 6)
+		else if (state == positionTracker.POSSOUTH)
         {
             startNearAttack2();
         }
-        else if (state == 7)
+		else if (state == positionTracker.POSSOUTHEAST)
         {
             doNothingAtAll();
         }
